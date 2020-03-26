@@ -25,7 +25,7 @@ function App() {
         title="COVID-19: Confirmed per capita"
         min={0}
         max={50}
-        intent="warning"
+        intent="danger"
       />
 
       <MapChart

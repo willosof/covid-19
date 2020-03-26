@@ -21,7 +21,7 @@ export default class MapChart extends React.Component {
             dates: [],
             max: 1,
             dateIndex: 0,
-            date: '3/24/20'
+            date: ''
         }
     }
 
@@ -32,7 +32,7 @@ export default class MapChart extends React.Component {
             //console.log("firstrow", data[1]);
             for (let n = 1; n <= 4; n++) firstrow.shift()
             firstrow.pop();
-            this.setState({ data, dateIndex: 0, date: firstrow[0], dates: [...firstrow] });
+            this.setState({ data, dateIndex: firstrow.length-7, date: firstrow[firstrow.length-7], dates: [...firstrow] });
         });
     }
 
@@ -118,16 +118,16 @@ export default class MapChart extends React.Component {
                         <Col md={1} />
                         <Col md={3}>
                             <Label>
-                                Dedramatizer
+                                Dedramatizer&trade;
                                 <Slider
                                     min={1}
                                     max={400}
                                     stepSize={1}
-                                    labelStepSize={50}
+                                    labelStepSize={100}
                                     intent={Intent.SUCCESS}
                                     onChange={max => this.setState({ max })}
-                                    labelRenderer={val => parseInt((val / 400) * 11)}
-                                    showTrackFill={false}
+                                    labelRenderer={val => parseInt(val-1)}
+                                    showTrackFill={true}
                                     value={this.state.max}
                                     vertical={false}
                                 />
