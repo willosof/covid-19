@@ -122,7 +122,7 @@ export default class MapChart extends React.Component {
                                 <Slider
                                     min={1}
                                     max={400}
-                                    stepSize={50}
+                                    stepSize={1}
                                     labelStepSize={50}
                                     intent={Intent.SUCCESS}
                                     onChange={max => this.setState({ max })}
