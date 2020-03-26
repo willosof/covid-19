@@ -1,6 +1,6 @@
 {
   "name": "covid-19",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "homepage": "http://willosof.github.io/covid-19",
   "dependencies": {
