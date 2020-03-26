@@ -9,7 +9,7 @@ import {
     Sphere,
     Graticule
 } from "react-simple-maps";
-import { Slider,Intent,Label } from '@blueprintjs/core';
+import { Slider, Intent, Label } from '@blueprintjs/core';
 
 const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
@@ -32,20 +32,20 @@ export default class MapChart extends React.Component {
             //console.log("firstrow", data[1]);
             for (let n = 1; n <= 4; n++) firstrow.shift()
             firstrow.pop();
-            this.setState({ data, dateIndex: 0, date: firstrow[0], dates: [ ...firstrow ] });
+            this.setState({ data, dateIndex: 0, date: firstrow[0], dates: [...firstrow] });
         });
     }
 
     componentWillUpdate(nextProps, nextState) {
-        this.colorScale = scaleLinear().domain([this.props.min,nextState.max]).range(["#eee","#f00"]);
+        this.colorScale = scaleLinear().domain([this.props.min, nextState.max]).range(["#eee", "#f00"]);
     }
 
     mergeRegions(data) {
-        
+
         let newPreData = {}
         let manageKeys
 
-        data.map( row => {
+        data.map(row => {
             row.Name = this.nameFix(row['Country/Region']);
             if (manageKeys === undefined) {
                 manageKeys = Object.keys(row).filter(find => (find !== 'Province/State' && find !== 'Name' && find !== 'Lat' && find !== 'Long'))
@@ -60,7 +60,7 @@ export default class MapChart extends React.Component {
                 })
             }
         })
-        
+
         return Object.values(newPreData)
     }
 
@@ -70,7 +70,7 @@ export default class MapChart extends React.Component {
             'Greenland': 'Denmark',
             'Congo (Brazzaville)': 'Dem. Rep. Congo',
             'Congo (Kinshasa)': 'Dem. Rep. Congo',
-            'Korea, South' : 'South Korea',
+            'Korea, South': 'South Korea',
         };
         return conv[input] !== undefined ? conv[input] : input
     }
@@ -78,23 +78,24 @@ export default class MapChart extends React.Component {
     changeDate(val) {
         this.setState({ dateIndex: val, date: this.state.dates[val] })
     }
+
     perCapita(geo, count) {
         return 100000 / geo.properties.POP_EST * count;
     }
-    deadCountryColor(geo) {
-        //console.log("wtf is", geo.properties.NAME);
+
+    datalessCountryColor(geo) {
         return "#ddd";
     }
+
     render() {
         const data = this.state.data;
+
         if (this.state.dates.length === 0) return <Fragment />
 
-        //console.log("state", this.state);
         return (
-            
+
             <Fragment>
                 <Container>
-
                     <h1>{this.props.title}</h1>
                     <Row>
                         <Col md={8}>
@@ -102,12 +103,12 @@ export default class MapChart extends React.Component {
                                 Time
                                 <Slider
                                     min={0}
-                                    max={this.state.dates.length-1}
+                                    max={this.state.dates.length - 1}
                                     stepSize={1}
                                     labelStepSize={10}
                                     intent={this.props.intent}
-                                    onChange={ val => this.changeDate(val) }
-                                    labelRenderer={ val => this.state.dates[val] }
+                                    onChange={val => this.changeDate(val)}
+                                    labelRenderer={val => this.state.dates[val]}
                                     showTrackFill={true}
                                     value={this.state.dateIndex}
                                     vertical={false}
@@ -116,15 +117,15 @@ export default class MapChart extends React.Component {
                         </Col>
                         <Col md={4}>
                             <Label>
-                                Strength
+                                Dedramatize
                                 <Slider
                                     min={1}
                                     max={400}
                                     stepSize={1}
                                     labelStepSize={25}
                                     intent={Intent.SUCCESS}
-                                    onChange={ max => this.setState({max}) }
-                                    labelRenderer={ val => parseInt((val/400)*100) }
+                                    onChange={max => this.setState({ max })}
+                                    labelRenderer={val => parseInt((val / 400) * 100)}
                                     showTrackFill={false}
                                     value={this.state.max}
                                     vertical={false}
@@ -132,9 +133,8 @@ export default class MapChart extends React.Component {
                             </Label>
                         </Col>
                     </Row>
-
                 </Container>
-                <Container fluid style={{marginTop: 'calc((-100% / 12)', marginBottom: 'calc((-100% / 12)' }}>
+                <Container fluid style={{ marginTop: 'calc((-100% / 12)', marginBottom: 'calc((-100% / 12)' }}>
                     <ComposableMap
                         projectionConfig={{
                             rotate: [-10, 0, 0],
@@ -143,17 +143,16 @@ export default class MapChart extends React.Component {
                     >
                         <Sphere stroke="#E4E5E6" strokeWidth={1.4} />
                         <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
-
                         {data.length > 0 && (
                             <Geographies geography={geoUrl}>
                                 {({ geographies }) =>
                                     geographies.map(geo => {
-                                        const d = data.find(s => (this.nameFix(s.Name) === geo.properties.NAME || this.nameFix(s.Name) === geo.properties.NAME_LONG) );
+                                        const d = data.find(s => (this.nameFix(s.Name) === geo.properties.NAME || this.nameFix(s.Name) === geo.properties.NAME_LONG));
                                         return (
                                             <Geography
                                                 key={geo.rsmKey}
                                                 geography={geo}
-                                                fill={d ? this.colorScale(this.perCapita(geo, d[this.state.date])) : this.deadCountryColor(geo) }
+                                                fill={d ? this.colorScale(this.perCapita(geo, d[this.state.date])) : this.datalessCountryColor(geo)}
                                             />
                                         );
                                     })
