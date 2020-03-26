@@ -1,2 +1,2 @@
-# COVID-19 / Corona Virus Timeline Map 
+# COVID-19 / Corona virus timeline map 
 As fast as I could throw something together.
