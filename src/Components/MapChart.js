@@ -97,10 +97,10 @@ export default class MapChart extends React.Component {
             <Fragment>
                 <Container>
                     <h1>{this.props.title}</h1>
-                    <Row>
+                    <Row className="pl-3 pr-3">
                         <Col md={8}>
                             <Label>
-                                Time
+                                Date
                                 <Slider
                                     min={0}
                                     max={this.state.dates.length - 1}
@@ -115,17 +115,18 @@ export default class MapChart extends React.Component {
                                 />
                             </Label>
                         </Col>
-                        <Col md={4}>
+                        <Col md={1} />
+                        <Col md={3}>
                             <Label>
-                                Dedramatize
+                                Dedramatizer
                                 <Slider
                                     min={1}
                                     max={400}
-                                    stepSize={1}
-                                    labelStepSize={25}
+                                    stepSize={50}
+                                    labelStepSize={50}
                                     intent={Intent.SUCCESS}
                                     onChange={max => this.setState({ max })}
-                                    labelRenderer={val => parseInt((val / 400) * 100)}
+                                    labelRenderer={val => parseInt((val / 400) * 11)}
                                     showTrackFill={false}
                                     value={this.state.max}
                                     vertical={false}
