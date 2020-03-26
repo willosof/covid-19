@@ -19,7 +19,7 @@ export default class MapChart extends React.Component {
         this.state = {
             data: [],
             dates: [],
-            max: 10,
+            max: 1,
             dateIndex: 0,
             date: '3/24/20'
         }
