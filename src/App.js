@@ -14,9 +14,9 @@ function App() {
         <Callout intent="primary">
           I threw this page together for a friend, and you probably shouldn't 
           rely on it for, well, anything at all. The data used is fetched directly 
-          from the 
+          from the {' '}
           <a href="https://github.com/CSSEGISandData/COVID-19/">2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE</a>. 
-          Feel free to improve this page by 
+          {' '}Feel free to improve this page by {' '}
           <a href="https://github.com/willosof/covid-19">sending me a pull request</a>!</Callout>
       </Container>
 
