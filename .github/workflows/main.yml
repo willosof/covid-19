@@ -16,4 +16,4 @@ jobs:
         run: npm run build
 
       - name: Deploy 🚀
-        run: npx gh-pages -x -d build -r https://${{ secrets.GITHUB_TOKEN }}@github.com/willosof/covid-19.git
+        run: npx gh-pages -d build -r https://${{ secrets.GITHUB_TOKEN }}@github.com/willosof/covid-19.git
